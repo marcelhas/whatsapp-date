@@ -26,3 +26,7 @@ As you can see there are some additional sanity checks to ensure integrity.
 
 - Regex can be found [here](https://regex101.com/r/SWfL4C/1).
 - This [thread](https://unix.stackexchange.com/a/278440) was used as a starting point.
+
+## License
+
+[MIT](./LICENSE) License © 2022-Present [marcelhas](https://github.com/marcelhas)
