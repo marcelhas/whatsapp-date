@@ -1,18 +1,31 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -o errexit   # abort on nonzero exitstatus
-set -o nounset   # abort on unbound variable
-set -o pipefail  # don't hide errors within pipes
+set -euo pipefail
 
-function usage() {
-  echo "Usage: whatsapp.sh <directory>"
+# Allows running in debug mode by setting the TRACE environment variable.
+# e.g. <TRACE=1 ./yt-album.sh>
+if [[ "${TRACE-0}" == "1" ]]; then set -o xtrace; fi
+
+usage() {
+  printf \
+  'Usage: whatsapp-date.sh <directory>
+
+Examples:
+./whatsapp-date.sh ./images/
+# Debug mode
+TRACE=1 ./whatsapp-date.sh ./images/
+'
 }
 
-function err() {
+err() {
   echo "$1" >&2
 }
 
-[[ $# -ne 1 ]] && usage && exit 1;
+if [[ -z "${1-}" || "${1-}" =~ ^-*h(elp)?$ ]]; then
+    usage
+    exit
+fi
+
 [[ ! -d $1 ]] && echo "Directory does not exist!" && usage && exit 1;
 dir="$1"
 
