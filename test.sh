@@ -86,13 +86,17 @@ main() {
     local test_number=1
     local exit_code=0
 
+    echo "before for"
     for folder in tests/*; do
         [[ -f "$folder" ]] && continue
 
+        echo "folder: $folder"
+        echo "before test"
         # set +e
         test "$test_number" "$folder"
 
         local ret="$?"
+        echo "after test"
         if [[ $ret != "0" && $exit_code == "0" ]]; then
             exit_code="$ret"
         fi
@@ -104,20 +108,25 @@ main() {
 }
 
 test() {
+    echo "test"
     local test_number="$1"
     local folder="$2"
 
     local expected
     expected=$(cat "$folder/expected.txt")
+    echo "before whatsapp-date"
     local actual
     actual="$(whatsapp-date "$folder/input")"
-
+    echo "after whatsapp-date"
+    
     local expected_stat
     local actual_stat
+    echo "before stat"
     if [[ -f "$folder/stat.txt" ]]; then
         expected_stat="$(cat "$folder/stat.txt")"
         actual_stat="$(get_stats "$folder/input")"
     fi
+    echo "after stat"
 
     if ! is_ok "$expected" "$actual"; then
         log_not_ok "$test_number" "$folder" "$expected" "$actual"
@@ -134,11 +143,13 @@ test() {
 
 whatsapp-date() {
     local image_folder="$1"
+    echo "in whatsapp-date"
 
     ./whatsapp-date.sh --no-color "$image_folder" 2>&1
 }
 
 get_stats() {
+    echo "in get_stats"
     local image_folder="$1"
     local res=""
 
