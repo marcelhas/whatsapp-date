@@ -89,14 +89,14 @@ main() {
     for folder in tests/*; do
         [[ -f "$folder" ]] && continue
 
-        set +e
+        # set +e
         test "$test_number" "$folder"
 
         local ret="$?"
         if [[ $ret != "0" && $exit_code == "0" ]]; then
             exit_code="$ret"
         fi
-        set -e
+        # set -e
 
         ((test_number++))
     done
