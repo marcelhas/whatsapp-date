@@ -135,7 +135,7 @@ test() {
 whatsapp-date() {
     local image_folder="$1"
 
-    ./whatsapp-date.sh "$image_folder" 2>&1
+    ./whatsapp-date.sh --no-color "$image_folder" 2>&1
 }
 
 get_stats() {
