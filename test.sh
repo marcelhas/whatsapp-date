@@ -89,12 +89,6 @@ main() {
     for folder in tests/*; do
         [[ -f "$folder" ]] && continue
 
-        printf "ls\n"
-        ls -1 "$folder/input"
-
-        printf "stats\n"
-        get_stats "$folder/input"
-
         set +e
         test "$test_number" "$folder"
 
