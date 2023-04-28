@@ -116,7 +116,7 @@ test() {
     expected=$(cat "$folder/expected.txt")
     echo "before whatsapp-date"
     local actual
-    actual="$(whatsapp-date "$folder/input")"
+    actual="$(whatsapp_date "$folder/input")"
     echo "after whatsapp-date"
     
     local expected_stat
@@ -141,7 +141,7 @@ test() {
     fi
 }
 
-whatsapp-date() {
+whatsapp_date() {
     local image_folder="$1"
     echo "in whatsapp-date"
 
