@@ -89,12 +89,14 @@ main() {
     for folder in tests/*; do
         [[ -f "$folder" ]] && continue
 
+        set +e
         test "$test_number" "$folder"
 
         local ret="$?"
         if [[ $ret != "0" && $exit_code == "0" ]]; then
             exit_code="$ret"
         fi
+        set -e
 
         ((test_number++))
     done
@@ -108,9 +110,7 @@ test() {
     local expected
     expected=$(cat "$folder/expected.txt")
     local actual
-    set +e
-    actual="$(./whatsapp-date.sh --no-color -- "$folder/input" 2>&1)"
-    set -e
+    actual="$(./whatsapp-date.sh --no-color "$folder/input" 2>&1)"
 
     local expected_stat
     local actual_stat
