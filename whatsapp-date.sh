@@ -44,6 +44,12 @@ TRACE=1 ./whatsapp-date.sh ./images/
 '
 }
 
+die() {
+  log_err "${*}"
+  usage
+  exit 1
+}
+
 while :; do
   case ${1-} in
   # Two hyphens ends the options parsing
