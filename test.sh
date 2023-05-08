@@ -164,11 +164,11 @@ log_not_ok() {
 
     printf "${RED}not ok %s${RESET} - %s\n" "$test_number" "$test_name"
     if [[ -n "${VERBOSE-}" ]]; then
-        log_err "---"
-        log_warn "Expected:"
-        log_succ "$expected"
-        log_warn "Actual:"
-        log_err "$actual"
+        printf "---\n"
+        printf "Expected:\n"
+        printf "%s\n" "$expected"
+        printf "Actual:\n"
+        printf "%s\n" "$actual"
     fi
 }
 
