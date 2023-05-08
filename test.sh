@@ -16,11 +16,11 @@ log_succ() {
 }
 
 log_warn() {
-    printf "${YELLOW}%s${RESET}\n" "${*}" 1>&2
+    printf "${YELLOW}%s${RESET}\n" "${*}"
 }
 
 log_err() {
-    printf "${RED}%s${RESET}\n" "${*}" 1>&2
+    printf "${RED}%s${RESET}\n" "${*}"
 }
 
 usage() {
