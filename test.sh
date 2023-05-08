@@ -108,7 +108,7 @@ test() {
     local folder="$2"
 
     local expected
-    expected=$(cat "$folder/expected.txt")
+    expected="$(cat "$folder/expected.txt")"
     local actual
     actual="$(./whatsapp-date.sh --no-color "$folder/input" 2>&1)"
 
