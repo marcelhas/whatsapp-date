@@ -14,20 +14,20 @@ RESET=$(tput sgr0)
 DRY_RUN=
 
 log_succ() {
-    printf "${GREEN}%s${RESET}\n" "${*}"
+  printf "${GREEN}%s${RESET}\n" "${*}"
 }
 
 log_warn() {
-    printf "${YELLOW}%s${RESET}\n" "${*}" 1>&2
+  printf "${YELLOW}%s${RESET}\n" "${*}" 1>&2
 }
 
 log_err() {
-    printf "${RED}%s${RESET}\n" "${*}" 1>&2
+  printf "${RED}%s${RESET}\n" "${*}" 1>&2
 }
 
 usage() {
   printf \
-  'Usage: whatsapp-date.sh <directory>
+    'Usage: whatsapp-date.sh <directory>
 
 Options:
   -h, --help
@@ -45,38 +45,38 @@ TRACE=1 ./whatsapp-date.sh ./images/
 }
 
 while :; do
-    case ${1-} in
-    # Two hyphens ends the options parsing
-    --)
-        shift
-        break
-        ;;
-    -h | --help | help | "")
-        usage
-        exit
-        ;;
-    --dry-run)
-        DRY_RUN=1
-        ;;
-    --no-color)
-        GREEN=""
-        YELLOW=""
-        RED=""
-        RESET=""
-        ;;
-    # Anything remaining that starts with a dash triggers a fatal error
-    -?*)
-        die "The command line option is unknown: $1"
-        ;;
-    # Anything remaining is treated as content not a parseable option
-    *)
-        break
-        ;;
-    esac
+  case ${1-} in
+  # Two hyphens ends the options parsing
+  --)
     shift
+    break
+    ;;
+  -h | --help | help | "")
+    usage
+    exit
+    ;;
+  --dry-run)
+    DRY_RUN=1
+    ;;
+  --no-color)
+    GREEN=""
+    YELLOW=""
+    RED=""
+    RESET=""
+    ;;
+  # Anything remaining that starts with a dash triggers a fatal error
+  -?*)
+    die "The command line option is unknown: $1"
+    ;;
+  # Anything remaining is treated as content not a parseable option
+  *)
+    break
+    ;;
+  esac
+  shift
 done
 
-[[ ! -d $1 ]] && echo "Directory does not exist!" && usage && exit 1;
+[[ ! -d $1 ]] && echo "Directory does not exist!" && usage && exit 1
 dir="$1"
 
 min_date=$(date -d "2000-01-01 00:00:00" --rfc-3339=s)
@@ -97,19 +97,19 @@ for name in "$dir/"*; do
   fi
 
   # Check if date is valid.
-  if ! date="$(date -d "${filename:4:8}" --rfc-3339=s 2> /dev/null)"; then
+  if ! date="$(date -d "${filename:4:8}" --rfc-3339=s 2>/dev/null)"; then
     log_warn "$filename is an invalid date! skipping ..."
     continue
   fi
 
   # Sanity check 1.
-  if [[ $date < $min_date ]] ; then
+  if [[ $date < $min_date ]]; then
     log_warn "$filename is before 2000-01-01! skipping ..."
     continue
   fi
 
   # Sanity check 2.
-  if [[ $date > $max_date ]] ; then
+  if [[ $date > $max_date ]]; then
     log_warn "$filename is after 2099-12-31! skipping ..."
     continue
   fi
