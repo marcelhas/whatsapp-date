@@ -110,7 +110,7 @@ test() {
     local expected
     expected="$(cat "$folder/expected.txt")"
     local actual
-    actual="$(./whatsapp-date.sh --no-color "$folder/input" 2>&1)"
+    actual="$(TZ=UTC ./whatsapp-date.sh --no-color "$folder/input" 2>&1)"
 
     local expected_stat
     local actual_stat
@@ -137,7 +137,7 @@ get_stats() {
     local res=""
 
     for file in "$image_folder"/*; do
-        res+="$(basename "$file"):$(stat --format="%y" "$file")"
+        res+="$(basename "$file"):$(TZ=UTC stat --format="%y" "$file")"
         res+=$'\n'
     done
 
