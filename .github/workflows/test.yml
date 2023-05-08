@@ -16,4 +16,4 @@ jobs:
       #     name: whatsapp-date
       # If you chose API tokens for write access OR if you have a private cache
       # authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-      - run: TERM=xterm ./test.sh -- --verbose
+      - run: TERM=xterm ./test.sh --verbose
